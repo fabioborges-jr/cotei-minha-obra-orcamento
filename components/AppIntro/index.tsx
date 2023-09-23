@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-export default function AppIntro() {
+export default async function AppIntro() {
   return (
     <section>
       <div>
