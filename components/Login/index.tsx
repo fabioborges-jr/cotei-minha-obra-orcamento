@@ -5,21 +5,23 @@ import { GiEntryDoor } from 'react-icons/gi'
 
 export default function LoginButton() {
   return (
-    <section>
-      <form action="submit">
-        <label>Usuário</label>
-        <input type="text" />
-        <label>Senha</label>
-        <input type="password" />
+    <section className="flex flex-col">
+      <form action="submit" className="flex flex-col">
+        <label>
+          Usuário <input type="text" />
+        </label>
+        <label>
+          Senha <input type="password" />
+        </label>
         <button type="submit">Entre</button>
       </form>
 
-      <button>
+      <button className="flex">
         <GiEntryDoor />
         Criar Conta
       </button>
 
-      <button onClick={() => signIn()}>
+      <button className="flex" onClick={() => signIn()}>
         <FcGoogle />
         <p>Entre com o google</p>
       </button>

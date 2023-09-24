@@ -1,9 +1,10 @@
 import Provider from '@/components/Provider'
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+// eslint-disable-next-line camelcase
+import { Roboto_Mono } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const robotoMono = Roboto_Mono({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -18,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Provider>
-        <body className={inter.className}>{children}</body>
+        <body className={robotoMono.className}>{children}</body>
       </Provider>
     </html>
   )

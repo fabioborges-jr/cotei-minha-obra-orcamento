@@ -7,11 +7,11 @@ export default async function Home() {
   const session = await getServerSession(authOptions)
   if (!session) {
     return (
-      <main className="border-black border-2 flex h-screen justify-center">
-        <section className="border-black border-2 self-center">
+      <main className="border-red-600 border-2 h-screen flex">
+        <section className="flex justify-center items-center w-1/2 bg-color1">
           <AppIntro />
         </section>
-        <section className="border-black border-2 self-center">
+        <section className="flex justify-center items-center w-1/2 bg-color2">
           <Login />
         </section>
       </main>
