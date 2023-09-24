@@ -7,10 +7,10 @@ export default function LoginButton() {
   return (
     <section className="flex flex-col">
       <form action="submit" className="flex flex-col">
-        <label>
+        <label className="flex flex-col">
           Usuário <input type="text" />
         </label>
-        <label>
+        <label className="flex flex-col m-4">
           Senha <input type="password" />
         </label>
         <button type="submit">Entre</button>
