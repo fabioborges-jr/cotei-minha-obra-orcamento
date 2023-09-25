@@ -3,5 +3,13 @@
 @tailwind utilities;
 
 @layer components {
-
+  body{
+    @apply text-color5;
   }
+  input{
+    @apply bg-color1 rounded-sm p-0.5;
+  }
+  button{
+    @apply rounded-sm;
+  }
+}
