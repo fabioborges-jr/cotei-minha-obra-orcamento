@@ -1,9 +1,13 @@
 'use client'
+import { sign } from 'crypto'
 import { signIn } from 'next-auth/react'
 import { FcGoogle } from 'react-icons/fc'
 import { GiEntryDoor } from 'react-icons/gi'
 
 export default function LoginButton() {
+  async function handleAuth() {
+    signIn()
+  }
   return (
     <section className="flex flex-col">
       <form action="submit" className="flex flex-col">
@@ -27,7 +31,7 @@ export default function LoginButton() {
 
       <button
         className="flex self-center mt-4 border-solid border-color5 border-2 rounded-sm p-2.5 items-center"
-        onClick={() => signIn()}
+        onClick={handleAuth}
       >
         <FcGoogle size={25} />
         <p className="ml-4">Entre com o google</p>
