@@ -3,6 +3,13 @@ import AppIntro from '../components/AppIntro'
 import { getServerSession } from 'next-auth'
 import { authOptions } from './api/auth/[...nextauth]/route'
 
+const user = {
+  id: '1321321',
+  name: 'authname',
+  email: 'asdasda@gmail.com',
+  projects,
+}
+
 const project1 = {
   id: '1',
   name: 'Nome do projeto',
@@ -17,15 +24,18 @@ const project1 = {
   ],
 }
 
-const projects = new Array(3)
-projects[1] = project1
-console.log(projects[2])
+const projects = [project1, project1, project1]
 
 const listProjects = projects.map((project) =>
   typeof project.name !== 'undefined' ? (
-    <h1 key={project.id}>{project.name}</h1>
+    <button
+      className="bg-color2 h-3/5 w-1/6 rounded-sm flex justify-center items-center"
+      key={project.id}
+    >
+      {project.name}
+    </button>
   ) : (
-    <h1 key={project.id}>Crie um novo projeto</h1>
+    <button key={project.id}>Crie um novo projeto</button>
   ),
 )
 
@@ -45,10 +55,8 @@ export default async function Home() {
   }
   if (session) {
     return (
-      <main className="bg-color1 h-screen">
-        <button className="bg-color2 h-3/5 w-1/4 rounded-sm">
-          {listProjects}
-        </button>
+      <main className="bg-color1 h-screen flex place-content-around items-center">
+        {listProjects}
       </main>
     )
   }
