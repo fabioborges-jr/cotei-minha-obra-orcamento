@@ -1,5 +1,6 @@
 import Login from '@/components/Login'
 import AppIntro from '../components/AppIntro'
+import ListProjects from '../components/ListProjects'
 import { getServerSession } from 'next-auth'
 import { authOptions } from './api/auth/[...nextauth]/route'
 import prisma from '../lib/db'
@@ -19,21 +20,24 @@ export default async function Home() {
       </main>
     )
   }
-
   if (session.user?.email != null) {
+    const userEmail = session.user.email
     const user = await prisma.user.findUnique({
-      where: { email: session.user.email },
+      where: { email: userEmail },
     })
     if (!user) {
       const createUser = await prisma.user.create({
         data: {
-          email: session.user.email,
+          email: userEmail,
         },
       })
+      console.log('User created')
     }
-  }
 
-  return (
-    <main className="bg-color1 h-screen flex place-content-around items-center"></main>
-  )
+    return (
+      <main className="bg-color1 h-screen flex place-content-around items-center">
+        <ListProjects user={user} />
+      </main>
+    )
+  }
 }
