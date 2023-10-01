@@ -27,6 +27,7 @@ export default async function Home() {
 
     // Create a user
     if (!user) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const createUser = await prisma.user.create({
         data: {
           email: userEmail,
@@ -36,6 +37,7 @@ export default async function Home() {
         where: { email: userEmail },
       })
       if (user != null) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const createProjects = await prisma.project.createMany({
           data: [
             {
@@ -57,7 +59,7 @@ export default async function Home() {
 
     if (user != null)
       return (
-        <main className="bg-color1 h-screen flex place-content-around items-center">
+        <main className="bg-color1 h-screen flex justify-center items-center">
           <ListProjects user={user} />
         </main>
       )
