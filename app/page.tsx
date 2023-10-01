@@ -24,21 +24,42 @@ export default async function Home() {
     const user = await prisma.user.findUnique({
       where: { email: userEmail },
     })
+
+    // Create a user
     if (!user) {
       const createUser = await prisma.user.create({
         data: {
           email: userEmail,
         },
       })
-      console.log('User created')
+      const user = await prisma.user.findUnique({
+        where: { email: userEmail },
+      })
+      if (user != null) {
+        const createProjects = await prisma.project.createMany({
+          data: [
+            {
+              name: '',
+              userId: user.id,
+            },
+            {
+              name: '',
+              userId: user.id,
+            },
+            {
+              name: '',
+              userId: user.id,
+            },
+          ],
+        })
+      }
     }
 
-    if (user != null) {
+    if (user != null)
       return (
         <main className="bg-color1 h-screen flex place-content-around items-center">
           <ListProjects user={user} />
         </main>
       )
-    }
   }
 }

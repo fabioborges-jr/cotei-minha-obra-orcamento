@@ -10,8 +10,15 @@ type UserProps = {
 
 export default async function ListProjects(props: UserProps) {
   const projects = await prisma.project.findMany({
-    where: { id: props.user.id },
+    where: { userId: props.user.id },
   })
-  console.log(projects)
-  return <h1>Hello World</h1>
+  const listProjects = projects.map((project) => {
+    if (project.name === '') {
+      return <button key={project.id}>Crie um novo projeto</button>
+    } else {
+      return <button key={project.id}>{project.name}</button>
+    }
+  })
+
+  return <>{listProjects}</>
 }
