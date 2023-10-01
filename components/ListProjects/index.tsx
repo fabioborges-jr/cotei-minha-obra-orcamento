@@ -10,7 +10,8 @@ type UserProps = {
 
 export default async function ListProjects(props: UserProps) {
   const projects = await prisma.project.findMany({
-    where: { email: props.userEmail },
+    where: { id: props.user.id },
   })
+  console.log(projects)
   return <h1>Hello World</h1>
 }

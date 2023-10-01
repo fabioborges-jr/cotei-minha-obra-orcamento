@@ -7,7 +7,6 @@ import prisma from '../lib/db'
 
 export default async function Home() {
   const session = await getServerSession(authOptions)
-
   if (!session) {
     return (
       <main className="border-red-600 border-2 h-screen flex">
@@ -34,10 +33,12 @@ export default async function Home() {
       console.log('User created')
     }
 
-    return (
-      <main className="bg-color1 h-screen flex place-content-around items-center">
-        <ListProjects user={user} />
-      </main>
-    )
+    if (user != null) {
+      return (
+        <main className="bg-color1 h-screen flex place-content-around items-center">
+          <ListProjects user={user} />
+        </main>
+      )
+    }
   }
 }
