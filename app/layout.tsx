@@ -3,6 +3,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 // eslint-disable-next-line camelcase
 import { Roboto_Mono } from 'next/font/google'
+import Script from 'next/script'
 
 const robotoMono = Roboto_Mono({ subsets: ['latin'] })
 
@@ -20,6 +21,12 @@ export default function RootLayout({
     <html lang="en">
       <Provider>
         <body className={robotoMono.className}>{children}</body>
+        <Script
+          src="https://cdnjs.cloudflare.com/ajax/libs/react-modal/3.14.3/react-modal.min.js"
+          integrity="sha512-MY2jfK3DBnVzdS2V8MXo5lRtr0mNRroUI9hoLVv2/yL3vrJTam3VzASuKQ96fLEpyYIT4a8o7YgtUs5lPjiLVQ=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
       </Provider>
     </html>
   )
