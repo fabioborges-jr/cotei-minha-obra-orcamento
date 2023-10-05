@@ -3,18 +3,19 @@ import { PiPlus } from 'react-icons/pi'
 import { BsFillTrash3Fill } from 'react-icons/bs'
 import { useState } from 'react'
 import Modal from 'react-modal'
+import { data } from 'autoprefixer'
 
-type ButtonProps = {
+type NewProjectProps = {
   project: {
     id: number
     name: string
     createdAt: Date
     updatedAt: Date
-    userId: number | null
+    userId: number
   }
 }
 
-export default function NewProjectButton(props: ButtonProps) {
+export default function NewProjectButton(props: NewProjectProps) {
   // modal settings
   const [modalIsOpen, setIsOpen] = useState(false)
   function openModal() {
@@ -26,7 +27,14 @@ export default function NewProjectButton(props: ButtonProps) {
   function afterOpenModal() {
     // references
   }
+
+  // insert new project at DB
   const [nameProject, setNameProject] = useState('')
+  const existingProject = props.project
+  const data = {
+    nameProject,
+    existingProject,
+  }
   function handleProjectName(e: React.ChangeEvent<HTMLInputElement>) {
     setNameProject(e.target.value)
     console.log(nameProject)
@@ -37,8 +45,9 @@ export default function NewProjectButton(props: ButtonProps) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(nameProject),
+      body: JSON.stringify(data),
     })
+    closeModal()
   }
 
   return (
@@ -74,7 +83,7 @@ export default function NewProjectButton(props: ButtonProps) {
       </Modal>
       <button
         onClick={openModal}
-        className="bg-color2 rounded-sm px-32 flex flex-col items-center justify-center"
+        className="bg-color2 rounded-sm w-1/5 flex flex-col items-center justify-center"
       >
         <PiPlus size={40} className="mb-1" />
         CRIE UM NOVO PROJETO
