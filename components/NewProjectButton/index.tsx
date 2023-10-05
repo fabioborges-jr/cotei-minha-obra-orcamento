@@ -15,6 +15,7 @@ type ButtonProps = {
 }
 
 export default function NewProjectButton(props: ButtonProps) {
+  // modal settings
   const [modalIsOpen, setIsOpen] = useState(false)
   function openModal() {
     setIsOpen(true)
@@ -25,15 +26,24 @@ export default function NewProjectButton(props: ButtonProps) {
   function afterOpenModal() {
     // references
   }
+  const [nameProject, setNameProject] = useState('')
+  function handleProjectName(e: React.ChangeEvent<HTMLInputElement>) {
+    setNameProject(e.target.value)
+    console.log(nameProject)
+  }
+  async function handleCreateProject() {
+    const response = await fetch('api/project', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(nameProject),
+    })
+  }
 
   return (
     <>
       <Modal
-        className="bg-color2 h-2/3 w-3/4 place-content-center"
-        isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        contentLabel="Create projects"
         style={{
           overlay: {
             display: 'flex',
@@ -41,7 +51,27 @@ export default function NewProjectButton(props: ButtonProps) {
             alignItems: 'center',
           },
         }}
-      ></Modal>
+        className="bg-color2 h-1/5 w-1/5 place-content-center rounded-sm flex flex-col items-center p-10"
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        contentLabel="Create projects"
+      >
+        <p className="">Qual será o nome do seu novo projeto?</p>
+        <div>
+          <input
+            className="mt-3"
+            type="text"
+            onChange={(e) => handleProjectName(e)}
+          />
+          <button
+            onClick={handleCreateProject}
+            className="bg-color5 text-color1 px-3.5 ml-3"
+          >
+            Ok
+          </button>
+        </div>
+      </Modal>
       <button
         onClick={openModal}
         className="bg-color2 rounded-sm px-32 flex flex-col items-center justify-center"

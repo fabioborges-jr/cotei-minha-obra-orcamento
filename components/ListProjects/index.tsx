@@ -14,7 +14,6 @@ export default async function ListProjects(props: UserProps) {
   const projects = await prisma.project.findMany({
     where: { userId: props.user.id },
   })
-  console.log(projects)
   const listProjects = projects.map((project) => {
     if (project.name.length === 0) {
       return <NewProjectButton project={project} key={project.id} />
