@@ -37,7 +37,6 @@ export default function NewProjectButton(props: NewProjectProps) {
   }
   function handleProjectName(e: React.ChangeEvent<HTMLInputElement>) {
     setNameProject(e.target.value)
-    console.log(nameProject)
   }
   async function handleCreateProject() {
     const response = await fetch('api/project', {
