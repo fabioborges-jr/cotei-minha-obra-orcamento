@@ -18,26 +18,26 @@ model User {
 }
 
 model Project {
-  id        Int      @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Code      Code[]
-  User      User?    @relation(fields: [userId], references: [id])
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  User      User?      @relation(fields: [userId], references: [id])
   userId    Int
+  subgroups Subgroup[]
 }
 
 model Subgroup {
-  id    Int    @id @default(autoincrement())
-  name  String
-  codes Code[]
+  id        Int      @id @default(autoincrement())
+  name      String
+  codes     Code[]
+  Project   Project? @relation(fields: [projectId], references: [id])
+  projectId Int
 }
 
 model Code {
   id         Int       @id @default(autoincrement())
   code       String
+  subgroupId Int
   Subgroup   Subgroup? @relation(fields: [subgroupId], references: [id])
-  subgroupId Int?
-  Project    Project?  @relation(fields: [projectId], references: [id])
-  projectId  Int?
 }
