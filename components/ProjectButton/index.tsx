@@ -30,7 +30,7 @@ export default function ProjectButton(props: ButtonProps) {
   }
   return (
     <Link
-      href="/project"
+      href={`/project/${props.project.id}`}
       className="relative bg-color2 rounded-sm w-1/5 flex flex-col items-center justify-center"
     >
       <button className="">
