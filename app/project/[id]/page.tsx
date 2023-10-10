@@ -6,6 +6,7 @@ import Image from 'next/image'
 import AddCodeModal from '@/components/AddCodeModal'
 
 export default async function Project({ params }: { params: { id: number } }) {
+  let listCodes
   const session = await getServerSession(authOptions)
   const project = await prisma.project.findUnique({
     where: {

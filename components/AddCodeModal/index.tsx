@@ -3,11 +3,11 @@ import Modal from 'react-modal'
 import { useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
 
-type ProjectIdProps = {
+type ProjectProps = {
   projectId: number
 }
 
-type CodeProps = {
+type CodeRefProps = {
   id: number
   description: string
   font: string
@@ -17,12 +17,20 @@ type CodeProps = {
   dateReference: string
 }
 
-export default function AddCodeModal(props: ProjectIdProps) {
+type Code = {
+  id: number
+  code: string
+  projectId: number
+}
+
+export default function AddCodeModal(props: ProjectProps) {
   const projectId = props.projectId
   const [modalIsOpen, setIsOpen] = useState(false)
   const [searchCode, setSearchCode] = useState('')
   const [description, setDescription] = useState('')
   const [listCodeReferences, setCodeReferences] = useState([])
+  const [listCodes, setListCodes] = useState([])
+
   function openModal() {
     setIsOpen(true)
   }
@@ -43,7 +51,7 @@ export default function AddCodeModal(props: ProjectIdProps) {
       },
     })
     const data = await response.json()
-    const codeReferences = data.map((code: CodeProps) => {
+    const codeReferences = data.map((code: CodeRefProps) => {
       const dateParts = code.dateReference.split('-')
       const year = dateParts[0]
       const month = dateParts[1]
@@ -74,12 +82,33 @@ export default function AddCodeModal(props: ProjectIdProps) {
     setCodeReferences(codeReferences)
   }
 
+  async function fetchCode() {
+    const projectIdNumber = Number(projectId)
+    const response = await fetch('http://localhost:3000/api/code', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    const data = await response.json()
+    const listCode = data.map((code: Code) => {
+      console.log(
+        `projectID: ${projectId} ${typeof projectId} codeProjectId: ${
+          code.projectId
+        } ${typeof code.projectId} `,
+      )
+      return code.projectId === projectIdNumber ? (
+        <h1 key={code.id}>{code.code}</h1>
+      ) : null
+    })
+    setListCodes(listCode)
+  }
+
   async function handleSelectCode(codeReference: string) {
     const data = {
       codeReference,
       projectId,
     }
-    console.log(data)
     const response = await fetch('http://localhost:3000/api/code', {
       method: 'POST',
       headers: {
@@ -87,6 +116,7 @@ export default function AddCodeModal(props: ProjectIdProps) {
       },
       body: JSON.stringify(data),
     })
+    fetchCode()
     closeModal()
   }
 
@@ -145,6 +175,7 @@ export default function AddCodeModal(props: ProjectIdProps) {
         </div>
         {listCodeReferences}
       </Modal>
+      <div>{listCodes}</div>
       <button className="bg-color2 w-full text-left" onClick={openModal}>
         ADICIONE UM NOVO CÓDIGO
       </button>
