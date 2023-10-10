@@ -1,6 +1,6 @@
 'use client'
 import Modal from 'react-modal'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
 
 type ProjectProps = {
@@ -83,6 +83,13 @@ export default function AddCodeModal(props: ProjectProps) {
   }
 
   async function fetchCode() {
+    const responseRef = await fetch('http://localhost:3000/api/coderef', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    const dataRef = await responseRef.json()
     const projectIdNumber = Number(projectId)
     const response = await fetch('http://localhost:3000/api/code', {
       method: 'GET',
@@ -92,17 +99,37 @@ export default function AddCodeModal(props: ProjectProps) {
     })
     const data = await response.json()
     const listCode = data.map((code: Code) => {
-      console.log(
-        `projectID: ${projectId} ${typeof projectId} codeProjectId: ${
-          code.projectId
-        } ${typeof code.projectId} `,
-      )
-      return code.projectId === projectIdNumber ? (
-        <h1 key={code.id}>{code.code}</h1>
-      ) : null
+      return dataRef.map((ref: CodeRefProps) => {
+        const dateParts = ref.dateReference.split('-')
+        const year = dateParts[0]
+        const month = dateParts[1]
+        if (
+          ref.codeReference === code.code &&
+          code.projectId === projectIdNumber
+        ) {
+          return (
+            <div key={code.id} className="flex">
+              <h1></h1>
+              <h1>{ref.font}</h1>
+              <h1>{code.code}</h1>
+              <h1>{ref.description}</h1>
+              <h1>{ref.unit}</h1>
+              <h1>{ref.price}</h1>
+              <h1>
+                {month}/{year}
+              </h1>
+            </div>
+          )
+        }
+        return null
+      })
     })
     setListCodes(listCode)
   }
+
+  useEffect(() => {
+    fetchCode()
+  }, [])
 
   async function handleSelectCode(codeReference: string) {
     const data = {
