@@ -12,14 +12,7 @@ export default async function Project({ params }: { params: { id: number } }) {
       id: Number(params.id),
     },
   })
-  if (project) {
-    const subgroups = await prisma.subgroup.findMany({
-      where: {
-        projectId: project.id,
-      },
-    })
-    console.log(subgroups)
-  }
+
   if (session?.user?.email != null) {
     const user = await prisma.user.findUnique({
       where: {
@@ -33,14 +26,14 @@ export default async function Project({ params }: { params: { id: number } }) {
 
   return (
     <main className="bg-color1 h-screen flex justify-center items-center">
-      <section className="flex flex-col items-center justify-center w-11/12 h-5/6">
+      <section className="flex flex-col items-center w-11/12 h-5/6">
         <nav>
           <Image src="/cotei-logo.svg" width={100} height={100} alt="logo" />
           <h1>{project?.name}</h1>
         </nav>
-        <table className="h-3/4 w-5/6 mt-3.5">
+        <table className="w-full">
           <thead className="bg-color3">
-            <tr className="h-14">
+            <tr className="h-10">
               <th>buttonEdit</th>
               <th>FONTE</th>
               <th>CÓDIGO</th>
@@ -50,28 +43,9 @@ export default async function Project({ params }: { params: { id: number } }) {
               <th>DATA</th>
             </tr>
           </thead>
-          <tbody className="bg-color2">
-            <tr>
-              <td>teste</td>
-              <td>teste</td>
-              <td>teste</td>
-              <td>teste</td>
-              <td>teste</td>
-              <td>teste</td>
-              <td>teste</td>
-            </tr>
-            <tr>
-              <td>teste</td>
-              <td>teste</td>
-              <td>teste</td>
-              <td>teste</td>
-              <td>teste</td>
-              <td>teste</td>
-              <td>teste</td>
-            </tr>
-          </tbody>
+          <tbody className=""></tbody>
         </table>
-        <AddCodeModal />
+        <AddCodeModal projectId={params.id} />
       </section>
     </main>
   )

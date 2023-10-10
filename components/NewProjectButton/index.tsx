@@ -3,7 +3,6 @@ import { PiPlus } from 'react-icons/pi'
 import { BsFillTrash3Fill } from 'react-icons/bs'
 import { useState } from 'react'
 import Modal from 'react-modal'
-import { data } from 'autoprefixer'
 
 type NewProjectProps = {
   project: {
