@@ -17,11 +17,8 @@ type CodeProps = {
   dateReference: string
 }
 
-type MouseProps = {
-  id: number
-}
-
 export default function AddCodeModal(props: ProjectIdProps) {
+  const projectId = props.projectId
   const [modalIsOpen, setIsOpen] = useState(false)
   const [searchCode, setSearchCode] = useState('')
   const [description, setDescription] = useState('')
@@ -53,13 +50,15 @@ export default function AddCodeModal(props: ProjectIdProps) {
 
       return code.codeReference === searchCode ? (
         <button
-          value={code.id}
           key={code.id}
           className="flex text-color5 w-full mt-2.5"
-          onClick={() => handleSelectCode(code.id)}
+          onClick={() => handleSelectCode(code.codeReference)}
         >
           <h1 className="bg-color1 w-1/12 h-auto m-1 items-center p-2">
             {code.font}
+          </h1>
+          <h1 className="bg-color1 w-1/12 h-auto m-1 items-center p-2">
+            {code.codeReference}
           </h1>
           <h1 className="bg-color1 grow h-auto text-start m-1 p-2">
             {code.description}
@@ -75,8 +74,19 @@ export default function AddCodeModal(props: ProjectIdProps) {
     setCodeReferences(codeReferences)
   }
 
-  async function handleSelectCode(codeId: number) {
-    console.log(codeId)
+  async function handleSelectCode(codeReference: string) {
+    const data = {
+      codeReference,
+      projectId,
+    }
+    console.log(data)
+    const response = await fetch('http://localhost:3000/api/code', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
     closeModal()
   }
 
@@ -126,6 +136,7 @@ export default function AddCodeModal(props: ProjectIdProps) {
         </div>
         <h1 className="self-start mt-5">Resultados:</h1>
         <div className="flex bg-color5 text-color1 w-full mt-3.5 h-10 text-center items-center m-1">
+          <h1 className="w-1/12 justify-center m-1">FONTE</h1>
           <h1 className="w-1/12 justify-center m-1">CÓDIGO</h1>
           <h1 className="grow m-1">DESCRIÇÃO</h1>
           <h1 className="w-1/12 m-1">UNIDADE</h1>
@@ -134,7 +145,7 @@ export default function AddCodeModal(props: ProjectIdProps) {
         </div>
         {listCodeReferences}
       </Modal>
-      <button className="bg-color2 w-full" onClick={openModal}>
+      <button className="bg-color2 w-full text-left" onClick={openModal}>
         ADICIONE UM NOVO CÓDIGO
       </button>
     </>

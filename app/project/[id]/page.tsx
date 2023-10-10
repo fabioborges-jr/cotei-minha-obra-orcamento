@@ -31,20 +31,15 @@ export default async function Project({ params }: { params: { id: number } }) {
           <Image src="/cotei-logo.svg" width={100} height={100} alt="logo" />
           <h1>{project?.name}</h1>
         </nav>
-        <table className="w-full">
-          <thead className="bg-color3">
-            <tr className="h-10">
-              <th>buttonEdit</th>
-              <th>FONTE</th>
-              <th>CÓDIGO</th>
-              <th>DESCRIÇÃO</th>
-              <th>UNIDADE</th>
-              <th>PREÇO UNITÁRIO</th>
-              <th>DATA</th>
-            </tr>
-          </thead>
-          <tbody className=""></tbody>
-        </table>
+        <div className="flex bg-color3 text-color1 w-full mt-3.5 text-center h-10 items-center">
+          <h1></h1>
+          <h1 className="w-1/12">FONTE</h1>
+          <h1 className="w-1/12">CÓDIGO</h1>
+          <h1 className="grow">DESCRIÇÃO</h1>
+          <h1 className="w-1/12">UNIDADE</h1>
+          <h1 className="w-1/12">PREÇO UNITÁRIO</h1>
+          <h1 className="w-1/12">DATA</h1>
+        </div>
         <AddCodeModal projectId={params.id} />
       </section>
     </main>
