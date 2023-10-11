@@ -22,7 +22,7 @@ export default function ProjectButton(props: ButtonProps) {
       nameProject: '',
     }
     const response = await fetch(
-      'http://localhost:3000/api/project',
+      'https://cotei-minha-obra-orcamento.vercel.app/api/project',
       {
         method: 'PATCH',
         headers: {
