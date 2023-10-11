@@ -45,15 +45,12 @@ export default function AddCodeModal(props: ProjectProps) {
   }
 
   async function handleSearch() {
-    const response = await fetch(
-      'https://cotei-minha-obra-orcamento.vercel.app/api/coderef',
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/coderef`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    )
+    })
     const data = await response.json()
     const codeReferences = data.map((code: CodeRefProps) => {
       const dateParts = code.dateReference.split('-')
@@ -87,26 +84,20 @@ export default function AddCodeModal(props: ProjectProps) {
   }
 
   async function fetchCode() {
-    const responseRef = await fetch(
-      'https://cotei-minha-obra-orcamento.vercel.app/api/coderef',
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    const responseRef = await fetch(`${process.env.NEXTAUTH_URL}/api/coderef`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    )
+    })
     const dataRef = await responseRef.json()
     const projectIdNumber = Number(projectId)
-    const response = await fetch(
-      'https://cotei-minha-obra-orcamento.vercel.app/api/code',
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/code`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    )
+    })
     const data = await response.json()
     const listCode = data.map((code: Code) => {
       return dataRef.map((ref: CodeRefProps) => {
@@ -158,16 +149,13 @@ export default function AddCodeModal(props: ProjectProps) {
       codeReference,
       projectId,
     }
-    const response = await fetch(
-      'https://cotei-minha-obra-orcamento.vercel.app/api/code',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/code`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    )
+      body: JSON.stringify(data),
+    })
     fetchCode()
     closeModal()
   }

@@ -38,7 +38,7 @@ export default function NewProjectButton(props: NewProjectProps) {
     setNameProject(e.target.value)
   }
   async function handleCreateProject() {
-    const response = await fetch('api/project', {
+    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/project`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

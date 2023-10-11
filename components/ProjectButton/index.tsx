@@ -21,7 +21,7 @@ export default function ProjectButton(props: ButtonProps) {
       },
       nameProject: '',
     }
-    const response = await fetch('api/project', {
+    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/project`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
