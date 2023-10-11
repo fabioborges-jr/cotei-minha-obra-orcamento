@@ -38,13 +38,16 @@ export default function NewProjectButton(props: NewProjectProps) {
     setNameProject(e.target.value)
   }
   async function handleCreateProject() {
-    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/project`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      'https://cotei-minha-obra-orcamento.vercel.app/api/project',
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       },
-      body: JSON.stringify(data),
-    })
+    )
     closeModal()
     props.getProjects()
   }

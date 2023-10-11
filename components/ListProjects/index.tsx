@@ -25,11 +25,14 @@ export default function ListProjects(props: UserProps) {
     getProjects()
   }, [])
   async function getProjects() {
-    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/project`, {
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      'https://cotei-minha-obra-orcamento.vercel.app/api/project',
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    })
+    )
     const projects = await response.json()
     const listProjects = projects.map((project: Project) => {
       if (project.name.length === 0) {
