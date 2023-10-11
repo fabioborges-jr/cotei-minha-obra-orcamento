@@ -5,7 +5,10 @@ import type { Metadata } from 'next'
 import { Roboto_Mono } from 'next/font/google'
 import Script from 'next/script'
 
-const robotoMono = Roboto_Mono({ subsets: ['latin'] })
+const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  weight: '400',
+})
 
 export const metadata: Metadata = {
   title: 'Create Next App',

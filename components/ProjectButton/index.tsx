@@ -10,6 +10,7 @@ type ButtonProps = {
     updatedAt: Date
     userId: number | null
   }
+  getProjects(): Promise<void>
 }
 
 export default function ProjectButton(props: ButtonProps) {
@@ -27,20 +28,19 @@ export default function ProjectButton(props: ButtonProps) {
       },
       body: JSON.stringify(data),
     })
+    props.getProjects()
   }
   return (
-    <Link
-      href={`/project/${props.project.id}`}
-      className="relative bg-color2 rounded-sm w-1/5 flex flex-col items-center justify-center"
-    >
-      <button className="">
-        {props.project.name}
-        <BsFillTrash3Fill
-          onClick={handleDeleteProject}
-          className="absolute right-0 bottom-0 mb-3 mr-3"
-          size={24}
-        />
+    <div className="relative bg-color2 rounded-sm w-1/5 flex flex-col items-center justify-center">
+      <Link href={`/project/${props.project.id}`}>
+        <button className="hover:underline">{props.project.name}</button>
+      </Link>
+      <button
+        className="absolute right-0 bottom-0 m-2"
+        onClick={handleDeleteProject}
+      >
+        <BsFillTrash3Fill size={24} />
       </button>
-    </Link>
+    </div>
   )
 }

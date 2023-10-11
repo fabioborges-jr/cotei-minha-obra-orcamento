@@ -13,7 +13,11 @@ export default function LoginButton() {
         <label className="flex flex-col mt-4">
           Senha <input className="p-2" type="password" />
         </label>
-        <button className="bg-color5 text-color1 p-2 mt-4" type="submit">
+        <button
+          className="bg-color5 text-color1 p-2 mt-4"
+          type="submit"
+          onClick={() => signIn()}
+        >
           Entre
         </button>
       </form>

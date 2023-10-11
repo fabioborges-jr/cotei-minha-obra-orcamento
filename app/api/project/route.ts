@@ -1,6 +1,19 @@
 import prisma from '@/lib/db'
 import { NextRequest } from 'next/server'
 
+export async function GET(req: NextRequest) {
+  const getProjects = await prisma.project.findMany({
+    select: {
+      id: true,
+      name: true,
+      createdAt: true,
+      updatedAt: true,
+      userId: true,
+    },
+  })
+  return Response.json(getProjects)
+}
+
 export async function PATCH(req: NextRequest) {
   const data = await req.json()
   const updateProject = await prisma.project.update({

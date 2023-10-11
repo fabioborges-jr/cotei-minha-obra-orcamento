@@ -2,6 +2,7 @@
 import Modal from 'react-modal'
 import { useEffect, useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
+import { BiEdit, BiSolidBookAdd } from 'react-icons/bi'
 
 type ProjectProps = {
   projectId: number
@@ -108,14 +109,26 @@ export default function AddCodeModal(props: ProjectProps) {
           code.projectId === projectIdNumber
         ) {
           return (
-            <div key={code.id} className="flex">
-              <h1></h1>
-              <h1>{ref.font}</h1>
-              <h1>{code.code}</h1>
-              <h1>{ref.description}</h1>
-              <h1>{ref.unit}</h1>
-              <h1>{ref.price}</h1>
-              <h1>
+            <div key={code.id} className="flex text-color5 w-full mt-2.5">
+              <h1 className="bg-color2 w-1/12 h-auto m-1 items-center p-2">
+                <BiEdit size={32} />
+              </h1>
+              <h1 className="bg-color2 w-1/12 h-auto m-1 items-center p-2">
+                {ref.font}
+              </h1>
+              <h1 className="bg-color2 w-1/12 h-auto m-1 items-center p-2">
+                {code.code}
+              </h1>
+              <h1 className="bg-color2 grow h-auto m-1 items-center p-2">
+                {ref.description}
+              </h1>
+              <h1 className="bg-color2 w-1/12 h-auto m-1 items-center p-2">
+                {ref.unit}
+              </h1>
+              <h1 className="bg-color2 w-1/12 h-auto m-1 items-center p-2">
+                {ref.price}
+              </h1>
+              <h1 className="bg-color2 w-1/12 h-auto m-1 items-center p-2">
                 {month}/{year}
               </h1>
             </div>
@@ -202,8 +215,12 @@ export default function AddCodeModal(props: ProjectProps) {
         </div>
         {listCodeReferences}
       </Modal>
-      <div>{listCodes}</div>
-      <button className="bg-color2 w-full text-left" onClick={openModal}>
+      {listCodes}
+      <button
+        className="bg-color2 w-full text-left mt-3 p-3 flex"
+        onClick={openModal}
+      >
+        <BiSolidBookAdd size={32} className="mr-3" />
         ADICIONE UM NOVO CÓDIGO
       </button>
     </>

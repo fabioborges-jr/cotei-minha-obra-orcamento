@@ -2,7 +2,6 @@
 import { PiPlus } from 'react-icons/pi'
 import { useState } from 'react'
 import Modal from 'react-modal'
-import { redirect } from 'next/navigation'
 
 type NewProjectProps = {
   project: {
@@ -12,6 +11,7 @@ type NewProjectProps = {
     updatedAt: Date
     userId: number
   }
+  getProjects(): Promise<void>
 }
 
 export default function NewProjectButton(props: NewProjectProps) {
@@ -46,7 +46,7 @@ export default function NewProjectButton(props: NewProjectProps) {
       body: JSON.stringify(data),
     })
     closeModal()
-    redirect('/')
+    props.getProjects()
   }
 
   return (
