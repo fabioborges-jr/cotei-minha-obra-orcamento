@@ -45,7 +45,7 @@ export default function AddCodeModal(props: ProjectProps) {
   }
 
   async function handleSearch() {
-    const response = await fetch('http://localhost:3000/api/coderef', {
+    const response = await fetch('https://cotei-minha-obra-orcamento.vercel.app/api/coderef', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ export default function AddCodeModal(props: ProjectProps) {
   }
 
   async function fetchCode() {
-    const responseRef = await fetch('http://localhost:3000/api/coderef', {
+    const responseRef = await fetch('https://cotei-minha-obra-orcamento.vercel.app/api/coderef', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ export default function AddCodeModal(props: ProjectProps) {
     })
     const dataRef = await responseRef.json()
     const projectIdNumber = Number(projectId)
-    const response = await fetch('http://localhost:3000/api/code', {
+    const response = await fetch('https://cotei-minha-obra-orcamento.vercel.app/api/code', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -149,7 +149,7 @@ export default function AddCodeModal(props: ProjectProps) {
       codeReference,
       projectId,
     }
-    const response = await fetch('http://localhost:3000/api/code', {
+    const response = await fetch('https://cotei-minha-obra-orcamento.vercel.app/api/code', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
