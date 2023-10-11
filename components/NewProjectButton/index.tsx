@@ -39,7 +39,7 @@ export default function NewProjectButton(props: NewProjectProps) {
   }
   async function handleCreateProject() {
     const response = await fetch(
-      'https://cotei-minha-obra-orcamento.vercel.app/api/project',
+      'http://localhost:3000/api/project',
       {
         method: 'PATCH',
         headers: {
