@@ -17,6 +17,8 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  const date = new Date()
+  console.log(date)
   const data = await req.json()
   const updateReference = await prisma.referenceCode.createMany({
     data: {
@@ -25,7 +27,7 @@ export async function POST(req: NextRequest) {
       description: data.description,
       unit: data.unit,
       price: data.price,
-      dateReference: data.date,
+      dateReference: data.dateReference,
     },
   })
   return Response.json(req.body)
