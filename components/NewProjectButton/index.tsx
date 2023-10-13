@@ -85,7 +85,7 @@ export default function NewProjectButton(props: NewProjectProps) {
         className="bg-color2 rounded-sm w-1/5 flex flex-col items-center justify-center"
       >
         <PiPlus size={40} className="mb-1" />
-        CRIE UM NOVO PROJETO
+        CRIE UM NOVO PROJETOOO
       </button>
     </>
   )

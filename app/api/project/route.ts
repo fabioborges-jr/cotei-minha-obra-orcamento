@@ -2,7 +2,7 @@ import prisma from '@/lib/db'
 import { NextRequest } from 'next/server'
 
 export async function GET(req: NextRequest) {
-  const getProjects = await prisma.project.findMany({
+  const getProject = await prisma.project.findMany({
     select: {
       id: true,
       name: true,
@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
       userId: true,
     },
   })
-  return Response.json(getProjects)
+  return Response.json(getProject)
 }
 
 export async function PATCH(req: NextRequest) {

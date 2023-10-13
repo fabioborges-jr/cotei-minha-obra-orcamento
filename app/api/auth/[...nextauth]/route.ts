@@ -1,6 +1,7 @@
 import GoogleProvider from 'next-auth/providers/google'
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import prisma from '@/lib/db'
 
 export const authOptions = {
   // Configure one or more authentication providers
@@ -10,21 +11,27 @@ export const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
     CredentialsProvider({
-      name: 'Credentials',
       credentials: {
-        username: { label: 'Username', type: 'text', placeholder: '' },
+        email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials, req) {
-        const user = {
-          id: '1',
-          email: 'cliente@exemplo.com',
-          password: '123456',
+      async authorize(credentials) {
+        const { email, password } = credentials ?? {}
+        if (!email || !password) {
+          throw new Error('Missing email or password')
         }
-        if (user) {
-          return user
-        } else {
-          return null
+        const user = await prisma.user.findUnique({
+          where: {
+            email,
+          },
+        })
+        if (!user || user.password !== password) {
+          throw new Error('Invalid email or password')
+        }
+        return {
+          id: user.id.toString(),
+          email: user.email,
+          password: user.password,
         }
       },
     }),

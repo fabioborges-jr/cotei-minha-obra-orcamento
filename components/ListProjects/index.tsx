@@ -3,12 +3,12 @@ import ProjectButton from '../ProjectButton'
 import NewProjectButton from '../NewProjectButton'
 import { useEffect, useState } from 'react'
 
-type UserProps = {
+type User = {
   user: {
     id: number
     email: string
     password: string | null
-  }
+  } | null
 }
 
 type Project = {
@@ -19,17 +19,21 @@ type Project = {
   userId: number
 }
 
-export default function ListProjects(props: UserProps) {
+export default function ListProjects({ user }: User) {
   const [listProject, setListProject] = useState([])
   useEffect(() => {
     getProjects()
   }, [])
   async function getProjects() {
-    const response = await fetch('http://localhost:3000/api/project', {
-      headers: {
-        'Content-Type': 'application/json',
+    console.log('disparado', user)
+    const response = await fetch(
+      `http://localhost:3000/api/project/${user.id}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    })
+    )
     const projects = await response.json()
     const listProjects = projects.map((project: Project) => {
       if (project.name.length === 0) {
