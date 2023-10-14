@@ -1,5 +1,6 @@
 'use client'
 import { signIn } from 'next-auth/react'
+import Link from 'next/link'
 import { FcGoogle } from 'react-icons/fc'
 import { GiEntryDoor } from 'react-icons/gi'
 
@@ -24,10 +25,10 @@ export default function LoginButton() {
 
       <button className="mt-4">Esqueci minha senha</button>
 
-      <button className="flex mt-4 self-center align-middle">
+      <Link href="/register" className="flex mt-4 self-center align-middle">
         <GiEntryDoor className="mr-4" size={25} />
         Criar Conta
-      </button>
+      </Link>
 
       <button
         className="flex self-center mt-4 border-solid border-color5 border-2 rounded-sm p-2.5 items-center"
