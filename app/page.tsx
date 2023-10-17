@@ -7,43 +7,38 @@ import prisma from '../lib/db'
 
 export default async function Home() {
   const session = await getServerSession(authOptions)
-  // checking if user registered
+  // Checking session
   if (session?.user?.email) {
     const { email } = session.user
     const user = await prisma.user.findUnique({
       where: { email },
     })
 
-    // Create a user
+    // Checking if the user session are registered at db
     if (!user) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // Create a new user
       const createUser = await prisma.user.create({
         data: {
           email,
         },
       })
-      const user = await prisma.user.findUnique({
-        where: { email },
+      // Creating the instances for user's projects
+      const createProjects = await prisma.project.createMany({
+        data: [
+          {
+            name: '',
+            userId: createUser.id,
+          },
+          {
+            name: '',
+            userId: createUser.id,
+          },
+          {
+            name: '',
+            userId: createUser.id,
+          },
+        ],
       })
-      if (user != null) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const createProjects = await prisma.project.createMany({
-          data: [
-            {
-              name: '',
-              userId: user.id,
-            },
-            {
-              name: '',
-              userId: user.id,
-            },
-            {
-              name: '',
-              userId: user.id,
-            },
-          ],
-        })
-      }
     }
 
     return (

@@ -10,6 +10,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
 model User {
   id       Int       @id @default(autoincrement())
   email    String    @unique
@@ -23,23 +27,41 @@ model Project {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   User      User?    @relation(fields: [userId], references: [id])
-  userId    Int
   codes     Code[]
+  Trash     Trash?   @relation(fields: [trashId], references: [id])
+  userId    Int
+  trashId   Int?
 }
 
 model Code {
-  id        Int      @id @default(autoincrement())
-  code      String
-  Project   Project? @relation(fields: [projectId], references: [id])
-  projectId Int
+  id              Int           @id @default(autoincrement())
+  code            String
+  projectId       Int
+  referenceCodeId Int
+  Project         Project?      @relation(fields: [projectId], references: [id])
+  ReferenceCode   ReferenceCode @relation(fields: [referenceCodeId], references: [id])
 }
 
 model ReferenceCode {
-  id            Int      @id @default(autoincrement())
+  id            Int        @id @default(autoincrement())
   font          String
   codeReference String
   description   String
   unit          String
   price         Float
   dateReference DateTime
+  Categorie     Categories @relation(fields: [categoriesId], references: [id])
+  categoriesId  Int
+  Code          Code[]
+}
+
+model Categories {
+  id            Int             @id @default(autoincrement())
+  name          String
+  ReferenceCode ReferenceCode[]
+}
+
+model Trash {
+  id       Int       @id @default(autoincrement())
+  Projects Project[]
 }
