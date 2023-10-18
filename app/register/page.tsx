@@ -29,10 +29,7 @@ export default function Register() {
               name="password"
             />
           </div>
-          <button
-            className="mt-3 bg-color5 text-color1 px-4 py-2 self-end"
-            type="submit"
-          >
+          <button className="mt-3 bg-color5 text-color1 px-4 py-2 self-end">
             OK
           </button>
         </form>
